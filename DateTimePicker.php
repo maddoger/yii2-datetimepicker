@@ -111,7 +111,7 @@ class DateTimePicker extends InputWidget
             echo '</div>';
         }
 
-        DateTimeEditorAsset::register($this->getView());
+        DateTimePickerAsset::register($this->getView());
         $this->registerClientScript();
     }
 
