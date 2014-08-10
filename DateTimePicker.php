@@ -15,7 +15,7 @@ use yii\widgets\InputWidget;
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  */
 
-class DateTimeEditor extends InputWidget
+class DateTimePicker extends InputWidget
 {
     public $config = [];
 

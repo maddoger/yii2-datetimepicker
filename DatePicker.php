@@ -8,7 +8,7 @@ namespace maddoger\widgets;
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  */
 
-class DateEditor extends DateTimeEditor
+class DatePicker extends DateTimePicker
 {
 	public $jsFormat = 'DD.MM.YYYY';
 	public $phpFormat = 'd.m.Y';

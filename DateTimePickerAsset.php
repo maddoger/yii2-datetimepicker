@@ -4,7 +4,7 @@ namespace maddoger\widgets;
 
 use yii\web\AssetBundle;
 
-class DateTimeEditorAsset extends AssetBundle
+class DateTimePickerAsset extends AssetBundle
 {
 	public $css = [
 		'bootstrap-datetimepicker.min.css',
