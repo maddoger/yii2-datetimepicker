@@ -1,0 +1,26 @@
+{
+	"name": "maddoger/yii2-datetimepicker",
+	"description": "Yii2 DateTimePicker Widget.",
+	"keywords": ["yii2", "extension", "widget"],
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"authors": [
+        {
+            "name": "Vitaliy Syrchikov",
+            "email": "maddoger@gmail.com"
+        },
+		{
+			"name": "Jonathan Peterson"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=5.3.0",
+		"yiisoft/yii2": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"maddoger\\widgets\\": ""
+		}
+	}
+}
