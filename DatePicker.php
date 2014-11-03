@@ -10,11 +10,9 @@ namespace maddoger\widgets;
 
 class DatePicker extends DateTimePicker
 {
-	public $jsFormat = 'DD.MM.YYYY';
-	public $phpFormat = 'd.m.Y';
-
 	public function init()
 	{
+        $this->phpFormat = \Yii::$app->formatter->dateFormat;
 		parent::init();
 		$this->config['pickTime'] = false;
 	}
