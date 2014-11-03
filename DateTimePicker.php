@@ -49,7 +49,7 @@ class DateTimePicker extends InputWidget
     /**
      * @var string format
      */
-    public $phpFormat = 'd.m.Y - H:i';
+    public $phpFormat = 'php:d.m.Y - H:i';
 
     /**
      * @var null|int Max characters count. Default is null (unlimited)
@@ -93,10 +93,7 @@ class DateTimePicker extends InputWidget
                 if (empty($this->value)) {
                     $value = Html::getAttributeValue($this->model, $this->attribute);
                     if ($value !== null) {
-                        if (!is_numeric($value)) {
-                            $datetime = new \DateTime($value);
-                            $this->value = $datetime->format($this->phpFormat);
-                        }
+                        $this->value = Yii::$app->formatter->asDatetime($value, $this->phpFormat);
                     }
                 }
             }
