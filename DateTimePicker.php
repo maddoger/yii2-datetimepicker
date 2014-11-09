@@ -71,6 +71,10 @@ class DateTimePicker extends InputWidget
         if (!$this->jsFormat) {
             $this->jsFormat = static::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
         }
+
+        if (!isset($this->options['class'])) {
+            $this->options['class'] = 'form-control';
+        }
     }
 
     /**
@@ -78,13 +82,9 @@ class DateTimePicker extends InputWidget
      */
     public function run()
     {
+        $res = '';
         if (!$this->selector) {
             $this->selector = '#' . $this->clientOptions['id'];
-            //$this->options['id'] = $this->config['id'];
-
-            if (!isset($this->options['class'])) {
-                $this->options['class'] = 'form-control';
-            }
 
             $fieldName = $this->name ? $this->name : $this->attribute;
 
@@ -104,18 +104,14 @@ class DateTimePicker extends InputWidget
                 }
             }
 
-            if (!isset($this->options['class'])) {
-                $this->options['class'] = 'form-control';
-            }
-
-            echo '<div id="'.$this->clientOptions['id'].'" class="input-group datetime-editor">';
-            echo '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
-            echo Html::textInput($fieldName, $this->value, $this->options);
-            echo '</div>';
+            $res .= '<div id="'.$this->clientOptions['id'].'" class="input-group datetime-editor">';
+            $res .= '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+            $res .= Html::textInput($fieldName, $this->value, $this->options);
+            $res .= '</div>';
         }
 
-        DateTimePickerAsset::register($this->getView());
         $this->registerClientScript();
+        return $res;
     }
 
     /**
@@ -124,6 +120,7 @@ class DateTimePicker extends InputWidget
     protected function registerClientScript()
     {
         $view = $this->getView();
+        DateTimePickerAsset::register($view);
 
         /*
          * Language fix

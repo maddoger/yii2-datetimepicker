@@ -90,19 +90,6 @@ class DateTimeRangePicker extends InputWidget
             $this->clientOptions2['pickTime'] = true;
         }
 
-        if (!$this->phpFormat) {
-            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
-        }
-        if (!$this->jsFormat) {
-            $this->jsFormat = DateTimePicker::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
-        }
-    }
-
-    /**
-     * Renders the widget.
-     */
-    public function run()
-    {
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
         }
@@ -110,6 +97,21 @@ class DateTimeRangePicker extends InputWidget
             $this->options2['class'] = 'form-control';
         }
 
+
+        if (!$this->phpFormat) {
+            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
+        }
+        if (!$this->jsFormat) {
+            $this->jsFormat = DateTimePicker::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
+        }
+
+    }
+
+    /**
+     * Renders the widget.
+     */
+    public function run()
+    {
         $fieldName = $this->name ? $this->name : $this->attribute;
         if (!is_null($this->model)) {
             $fieldName = Html::getInputName($this->model, $this->attribute);
@@ -144,15 +146,15 @@ class DateTimeRangePicker extends InputWidget
             }
         }
 
-
-        echo '<div id="'.$this->getId().'" class="input-group">';
-        echo Html::textInput($fieldName, $this->value, $this->options);
-        echo $this->delimiter;
-        echo Html::textInput($fieldName2, $this->value2, $this->options2);
-        echo '</div>';
-
-        DateTimePickerAsset::register($this->getView());
         $this->registerClientScript();
+
+        $res = '<div id="'.$this->getId().'" class="input-group">';
+        $res .= Html::textInput($fieldName, $this->value, $this->options);
+        $res .= $this->delimiter;
+        $res .= Html::textInput($fieldName2, $this->value2, $this->options2);
+        $res .= '</div>';
+
+        return $res;
     }
 
     /**
@@ -161,6 +163,7 @@ class DateTimeRangePicker extends InputWidget
     protected function registerClientScript()
     {
         $view = $this->getView();
+        DateTimePickerAsset::register($view);
 
         /*
          * Language fix
