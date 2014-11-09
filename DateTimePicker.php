@@ -21,7 +21,7 @@ class DateTimePicker extends InputWidget
     /**
      * @var array plugin options
      */
-    public $pluginOptions = [];
+    public $clientOptions = [];
 
     /**
      * @var array text field options
@@ -55,15 +55,15 @@ class DateTimePicker extends InputWidget
     public function init()
     {
         parent::init();
-        if (!isset($this->pluginOptions['pickDate'])) {
-            $this->pluginOptions['pickDate'] = true;
+        if (!isset($this->clientOptions['pickDate'])) {
+            $this->clientOptions['pickDate'] = true;
         }
-        if (!isset($this->pluginOptions['pickTime'])) {
-            $this->pluginOptions['pickTime'] = true;
+        if (!isset($this->clientOptions['pickTime'])) {
+            $this->clientOptions['pickTime'] = true;
         }
 
-        if (!isset($this->pluginOptions['id'])) {
-            $this->pluginOptions['id'] = $this->getId();
+        if (!isset($this->clientOptions['id'])) {
+            $this->clientOptions['id'] = $this->getId();
         }
         if (!$this->phpFormat) {
             $this->phpFormat = Yii::$app->formatter->datetimeFormat;
@@ -79,7 +79,7 @@ class DateTimePicker extends InputWidget
     public function run()
     {
         if (!$this->selector) {
-            $this->selector = '#' . $this->pluginOptions['id'];
+            $this->selector = '#' . $this->clientOptions['id'];
             //$this->options['id'] = $this->config['id'];
 
             if (!isset($this->options['class'])) {
@@ -108,7 +108,7 @@ class DateTimePicker extends InputWidget
                 $this->options['class'] = 'form-control';
             }
 
-            echo '<div id="'.$this->pluginOptions['id'].'" class="input-group datetime-editor">';
+            echo '<div id="'.$this->clientOptions['id'].'" class="input-group datetime-editor">';
             echo '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
             echo Html::textInput($fieldName, $this->value, $this->options);
             echo '</div>';
@@ -129,18 +129,18 @@ class DateTimePicker extends InputWidget
          * Language fix
          * @author <https://github.com/sim2github>
          */
-        if (!isset($this->pluginOptions['language'])) {
+        if (!isset($this->clientOptions['language'])) {
             $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->pluginOptions['language'] = $appLanguage;
+            $this->clientOptions['language'] = $appLanguage;
         }
-        if (!isset($this->pluginOptions['format'])) {
-            $this->pluginOptions['format'] = $this->jsFormat;
+        if (!isset($this->clientOptions['format'])) {
+            $this->clientOptions['format'] = $this->jsFormat;
         }
-        if (!isset($this->pluginOptions['startDate'])) {
-            $this->pluginOptions['startDate'] = '1.01.1900';
+        if (!isset($this->clientOptions['startDate'])) {
+            $this->clientOptions['startDate'] = '1.01.1900';
         }
 
-        $config = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
+        $config = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
 
         $js = "$('" . $this->selector . "').datetimepicker($config);";
         $view->registerJs($js);

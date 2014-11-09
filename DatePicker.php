@@ -13,7 +13,7 @@ class DatePicker extends DateTimePicker
 	public function init()
 	{
         $this->phpFormat = \Yii::$app->formatter->dateFormat;
-        $this->pluginOptions['pickTime'] = false;
+        $this->clientOptions['pickTime'] = false;
 		parent::init();
 	}
 }

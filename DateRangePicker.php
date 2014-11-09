@@ -12,8 +12,8 @@ class DateRangePicker extends DateTimeRangePicker
 {
 	public function init()
 	{
-        $this->pluginOptions['pickTime'] = false;
-        $this->pluginOptions2['pickTime'] = false;
+        $this->clientOptions['pickTime'] = false;
+        $this->clientOptions2['pickTime'] = false;
 
         $this->phpFormat = \Yii::$app->formatter->dateFormat;
 		parent::init();

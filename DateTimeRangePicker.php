@@ -21,7 +21,7 @@ class DateTimeRangePicker extends InputWidget
     /**
      * @var array plugin options
      */
-    public $pluginOptions = [];
+    public $clientOptions = [];
 
     /**
      * @var array text field options
@@ -46,7 +46,7 @@ class DateTimeRangePicker extends InputWidget
     /**
      * @var array
      */
-    public $pluginOptions2;
+    public $clientOptions2;
 
     /**
      * @var array
@@ -76,18 +76,18 @@ class DateTimeRangePicker extends InputWidget
     public function init()
     {
         parent::init();
-        if (!isset($this->pluginOptions['pickDate'])) {
-            $this->pluginOptions['pickDate'] = true;
+        if (!isset($this->clientOptions['pickDate'])) {
+            $this->clientOptions['pickDate'] = true;
         }
-        if (!isset($this->pluginOptions['pickTime'])) {
-            $this->pluginOptions['pickTime'] = true;
+        if (!isset($this->clientOptions['pickTime'])) {
+            $this->clientOptions['pickTime'] = true;
         }
 
-        if (!isset($this->pluginOptions2['pickDate'])) {
-            $this->pluginOptions2['pickDate'] = true;
+        if (!isset($this->clientOptions2['pickDate'])) {
+            $this->clientOptions2['pickDate'] = true;
         }
-        if (!isset($this->pluginOptions2['pickTime'])) {
-            $this->pluginOptions2['pickTime'] = true;
+        if (!isset($this->clientOptions2['pickTime'])) {
+            $this->clientOptions2['pickTime'] = true;
         }
 
         if (!$this->phpFormat) {
@@ -166,23 +166,23 @@ class DateTimeRangePicker extends InputWidget
          * Language fix
          * @author <https://github.com/sim2github>
          */
-        if (!isset($this->pluginOptions['language'])) {
+        if (!isset($this->clientOptions['language'])) {
             $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->pluginOptions['language'] = $appLanguage;
+            $this->clientOptions['language'] = $appLanguage;
         }
-        if (!isset($this->pluginOptions['format'])) {
-            $this->pluginOptions['format'] = $this->jsFormat;
+        if (!isset($this->clientOptions['format'])) {
+            $this->clientOptions['format'] = $this->jsFormat;
         }
-        if (!isset($this->pluginOptions2['language'])) {
+        if (!isset($this->clientOptions2['language'])) {
             $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->pluginOptions2['language'] = $appLanguage;
+            $this->clientOptions2['language'] = $appLanguage;
         }
-        if (!isset($this->pluginOptions2['format'])) {
-            $this->pluginOptions2['format'] = $this->jsFormat;
+        if (!isset($this->clientOptions2['format'])) {
+            $this->clientOptions2['format'] = $this->jsFormat;
         }
 
-        $config = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
-        $config2 = empty($this->pluginOptions2) ? '' : Json::encode($this->pluginOptions2);
+        $config = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
+        $config2 = empty($this->clientOptions2) ? '' : Json::encode($this->clientOptions2);
 
         $js = "$('#" . $this->options['id'] . "').datetimepicker($config);";
         $js .= "$('#" . $this->options2['id'] . "').datetimepicker($config2);";
