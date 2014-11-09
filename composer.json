@@ -16,7 +16,7 @@
 	"minimum-stability": "dev",
 	"require": {
 		"yiisoft/yii2": "*",
-        "bower-asset/eonasdan-bootstrap-datetimepicker": "3.*@stable"
+        "bower-asset/eonasdan-bootstrap-datetimepicker": ">=3.0.1"
 	},
 	"autoload": {
 		"psr-4": {
