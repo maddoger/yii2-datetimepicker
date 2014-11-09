@@ -6,16 +6,18 @@ use yii\web\AssetBundle;
 
 class DateTimePickerAsset extends AssetBundle
 {
+    public $sourcePath = '@bower/eonasdan-bootstrap-datetimepicker/build';
+
 	public $css = [
-		'@bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+		'css/bootstrap-datetimepicker.min.css',
 	];
 
 	public $js = [
-        '@bower/moment/min/moment-with-locales-min.js',
-		'@bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+		'js/bootstrap-datetimepicker.min.js',
 	];
 
 	public $depends = [
+        'maddoger\widgets\MomentAsset',
 		'yii\bootstrap\BootstrapAsset',
 		'yii\bootstrap\BootstrapPluginAsset',
 	];
