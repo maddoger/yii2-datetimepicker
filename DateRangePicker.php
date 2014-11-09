@@ -8,12 +8,14 @@ namespace maddoger\widgets;
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  */
 
-class DatePicker extends DateTimePicker
+class DateRangePicker extends DateTimeRangePicker
 {
 	public function init()
 	{
-        $this->phpFormat = \Yii::$app->formatter->dateFormat;
         $this->pluginOptions['pickTime'] = false;
+        $this->pluginOptions2['pickTime'] = false;
+
+        $this->phpFormat = \Yii::$app->formatter->dateFormat;
 		parent::init();
 	}
 }
