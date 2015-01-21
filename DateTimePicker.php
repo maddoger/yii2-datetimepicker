@@ -55,16 +55,7 @@ class DateTimePicker extends InputWidget
     public function init()
     {
         parent::init();
-        if (!isset($this->clientOptions['pickDate'])) {
-            $this->clientOptions['pickDate'] = true;
-        }
-        if (!isset($this->clientOptions['pickTime'])) {
-            $this->clientOptions['pickTime'] = true;
-        }
 
-        if (!isset($this->clientOptions['id'])) {
-            $this->clientOptions['id'] = $this->getId();
-        }
         if (!$this->phpFormat) {
             $this->phpFormat = Yii::$app->formatter->datetimeFormat;
         }
@@ -84,7 +75,7 @@ class DateTimePicker extends InputWidget
     {
         $res = '';
         if (!$this->selector) {
-            $this->selector = '#' . $this->clientOptions['id'];
+            $this->selector = '#' . $this->getId();
 
             $fieldName = $this->name ? $this->name : $this->attribute;
 
@@ -104,7 +95,7 @@ class DateTimePicker extends InputWidget
                 }
             }
 
-            $res .= '<div id="'.$this->clientOptions['id'].'" class="input-group datetime-editor">';
+            $res .= '<div id="'.$this->getId().'" class="input-group datetime-editor">';
             $res .= '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
             $res .= Html::textInput($fieldName, $this->value, $this->options);
             $res .= '</div>';
@@ -126,15 +117,15 @@ class DateTimePicker extends InputWidget
          * Language fix
          * @author <https://github.com/sim2github>
          */
-        if (!isset($this->clientOptions['language'])) {
+        if (!isset($this->clientOptions['locale'])) {
             $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->clientOptions['language'] = $appLanguage;
+            $this->clientOptions['locale'] = $appLanguage;
         }
         if (!isset($this->clientOptions['format'])) {
             $this->clientOptions['format'] = $this->jsFormat;
         }
-        if (!isset($this->clientOptions['startDate'])) {
-            $this->clientOptions['startDate'] = '1.01.1900';
+        if (!isset($this->clientOptions['minDate'])) {
+            $this->clientOptions['minDate'] = '1.01.1900';
         }
 
         $config = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
