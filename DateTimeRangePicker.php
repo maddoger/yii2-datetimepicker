@@ -76,19 +76,6 @@ class DateTimeRangePicker extends InputWidget
     public function init()
     {
         parent::init();
-        if (!isset($this->clientOptions['pickDate'])) {
-            $this->clientOptions['pickDate'] = true;
-        }
-        if (!isset($this->clientOptions['pickTime'])) {
-            $this->clientOptions['pickTime'] = true;
-        }
-
-        if (!isset($this->clientOptions2['pickDate'])) {
-            $this->clientOptions2['pickDate'] = true;
-        }
-        if (!isset($this->clientOptions2['pickTime'])) {
-            $this->clientOptions2['pickTime'] = true;
-        }
 
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
@@ -166,19 +153,19 @@ class DateTimeRangePicker extends InputWidget
         DateTimePickerAsset::register($view);
 
         /*
-         * Language fix
+         * locale fix
          * @author <https://github.com/sim2github>
          */
-        if (!isset($this->clientOptions['language'])) {
-            $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->clientOptions['language'] = $appLanguage;
+        if (!isset($this->clientOptions['locale'])) {
+            $applocale = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
+            $this->clientOptions['locale'] = $applocale;
         }
         if (!isset($this->clientOptions['format'])) {
             $this->clientOptions['format'] = $this->jsFormat;
         }
-        if (!isset($this->clientOptions2['language'])) {
-            $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-            $this->clientOptions2['language'] = $appLanguage;
+        if (!isset($this->clientOptions2['locale'])) {
+            $applocale = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
+            $this->clientOptions2['locale'] = $applocale;
         }
         if (!isset($this->clientOptions2['format'])) {
             $this->clientOptions2['format'] = $this->jsFormat;
