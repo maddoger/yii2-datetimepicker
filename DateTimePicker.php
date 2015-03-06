@@ -29,6 +29,11 @@ class DateTimePicker extends InputWidget
     public $options = [];
 
     /**
+     * @var array
+     */
+    public $containerOptions = [];
+
+    /**
      * @var string format
      */
     public $jsFormat;
@@ -42,6 +47,16 @@ class DateTimePicker extends InputWidget
      * @var bool Reformat value from model to phpFormat
      */
     public $reformatValue = false;
+
+    /**
+     * @var string addon template
+     */
+    public $addon = '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+
+    /**
+     * @var bool addon template before or after
+     */
+    public $addonBefore = true;
 
     /**
      * @var string selector for init js scripts
@@ -65,6 +80,9 @@ class DateTimePicker extends InputWidget
 
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
+        }
+        if (!isset($this->containerOptions['class'])) {
+            $this->containerOptions['class'] = 'input-group datetime-editor';
         }
     }
 
@@ -95,10 +113,16 @@ class DateTimePicker extends InputWidget
                 }
             }
 
-            $res .= '<div id="'.$this->getId().'" class="input-group datetime-editor">';
-            $res .= '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+            $this->containerOptions['id'] = $this->getId();
+
+            if ($this->addonBefore === true) {
+                $res .= $this->addon;
+            }
             $res .= Html::textInput($fieldName, $this->value, $this->options);
-            $res .= '</div>';
+            if ($this->addonBefore === false) {
+                $res .= $this->addon;
+            }
+            $res = Html::tag('div', $res, $this->containerOptions);
         }
 
         $this->registerClientScript();
@@ -125,7 +149,13 @@ class DateTimePicker extends InputWidget
             $this->clientOptions['format'] = $this->jsFormat;
         }
         if (!isset($this->clientOptions['minDate'])) {
-            $this->clientOptions['minDate'] = '1.01.1900';
+            $this->clientOptions['minDate'] = '1900-01-01';
+        }
+        if (!isset($this->clientOptions['widgetPositioning'])) {
+            $this->clientOptions['widgetPositioning'] = [
+                'horizontal' => $this->addonBefore ? 'left' : 'right',
+                'vertical' => 'auto',
+            ];
         }
 
         $config = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
