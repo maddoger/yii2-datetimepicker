@@ -18,5 +18,6 @@ class DateTimePickerAsset extends AssetBundle
 
 	public $depends = [
         'maddoger\widgets\MomentAsset',
+        'yii\web\JqueryAsset',
 	];
 }
