@@ -53,6 +53,11 @@ class DateTimeAttribute extends Object
     public $localTimeZone;
 
     /**
+     * @var bool true for datetime and time
+     */
+    public $timeZoneConvert;
+
+    /**
      * @var string
      */
     protected $_localFormatPhp;
@@ -65,7 +70,9 @@ class DateTimeAttribute extends Object
     public function init()
     {
         parent::init();
-
+        if ($this->timeZoneConvert === null) {
+            $this->timeZoneConvert =  $this->localFormat[0] != 'date';
+        }
         if (!$this->_localFormatPhp) {
             $this->_localFormatPhp = FormatConverter::convertDateIcuToPhp($this->localFormat[1], $this->localFormat[0]);
         }
@@ -88,15 +95,17 @@ class DateTimeAttribute extends Object
             return $this->_value;
         }
 
-        $datetime = DateTime::createFromFormat(
-            $this->originalFormat,
+        $datetime = static::parseDateValue(
             $this->behavior->owner->{$this->originalAttribute},
-            new DateTimeZone($this->originalTimeZone)
+            $this->originalFormat,
+            $this->originalTimeZone
         );
         if ($datetime === false) {
             return null;
         } else {
-            $datetime->setTimezone(new DateTimeZone($this->localTimeZone));
+            if ($this->timeZoneConvert) {
+                $datetime->setTimezone(new DateTimeZone($this->localTimeZone));
+            }
             return $this->behavior->formatter->format($datetime, $this->localFormat);
         }
     }
@@ -117,7 +126,9 @@ class DateTimeAttribute extends Object
         if ($datetime === false) {
             $this->behavior->owner->{$this->originalAttribute} = null;
         } else {
-            $datetime->setTimezone(new DateTimeZone($this->originalTimeZone));
+            if ($this->timeZoneConvert) {
+                $datetime->setTimezone(new DateTimeZone($this->originalTimeZone));
+            }
             $this->behavior->owner->{$this->originalAttribute} =
                 $datetime->format($this->originalFormat);
         }

@@ -71,13 +71,6 @@ class DateTimePicker extends InputWidget
     {
         parent::init();
 
-        if (!$this->phpFormat) {
-            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
-        }
-        if (!$this->jsFormat) {
-            $this->jsFormat = static::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
-        }
-
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
         }
@@ -91,6 +84,19 @@ class DateTimePicker extends InputWidget
      */
     public function run()
     {
+        if (!$this->phpFormat && $this->hasModel()) {
+            $attribute = $this->model->{$this->attribute};
+            if ($attribute instanceof DateTimeAttribute) {
+                if (isset($attribute->localFormat[1])) {
+                    $this->phpFormat = $attribute->localFormat[1];
+                }
+            }
+        }
+
+        if (!$this->phpFormat) {
+            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
+        }
+
         $res = '';
         if (!$this->selector) {
             $this->selector = '#' . $this->getId();
@@ -145,9 +151,14 @@ class DateTimePicker extends InputWidget
             $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
             $this->clientOptions['locale'] = $appLanguage;
         }
+
+        if (!$this->jsFormat) {
+            $this->jsFormat = static::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
+        }
         if (!isset($this->clientOptions['format'])) {
             $this->clientOptions['format'] = $this->jsFormat;
         }
+
         if (!isset($this->clientOptions['minDate'])) {
             $this->clientOptions['minDate'] = '1900-01-01';
         }

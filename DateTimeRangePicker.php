@@ -52,7 +52,7 @@ class DateTimeRangePicker extends InputWidget
      * @var array
      */
     public $options2;
-    
+
     /**
      * @var string name of textarea tag or name of attribute
      */
@@ -83,15 +83,6 @@ class DateTimeRangePicker extends InputWidget
         if (!isset($this->options2['class'])) {
             $this->options2['class'] = 'form-control';
         }
-
-
-        if (!$this->phpFormat) {
-            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
-        }
-        if (!$this->jsFormat) {
-            $this->jsFormat = DateTimePicker::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
-        }
-
     }
 
     /**
@@ -99,6 +90,19 @@ class DateTimeRangePicker extends InputWidget
      */
     public function run()
     {
+        if (!$this->phpFormat && $this->hasModel()) {
+            $attribute = $this->model->{$this->attribute};
+            if ($attribute instanceof DateTimeAttribute) {
+                if (isset($attribute->localFormat[1])) {
+                    $this->phpFormat = $attribute->localFormat[1];
+                }
+            }
+        }
+
+        if (!$this->phpFormat) {
+            $this->phpFormat = Yii::$app->formatter->datetimeFormat;
+        }
+
         $fieldName = $this->name ? $this->name : $this->attribute;
         if (!is_null($this->model)) {
             $fieldName = Html::getInputName($this->model, $this->attribute);
@@ -151,6 +155,10 @@ class DateTimeRangePicker extends InputWidget
     {
         $view = $this->getView();
         DateTimePickerAsset::register($view);
+
+        if (!$this->jsFormat) {
+            $this->jsFormat = DateTimePicker::convertPhpDateToMomentJs(FormatConverter::convertDateIcuToPhp($this->phpFormat));
+        }
 
         /*
          * locale fix
