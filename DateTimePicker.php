@@ -19,14 +19,24 @@ use yii\widgets\InputWidget;
 class DateTimePicker extends InputWidget
 {
     /**
+     * @var array text field options
+     */
+    public $options = [];
+
+    /**
      * @var array plugin options
      */
     public $clientOptions = [];
 
     /**
-     * @var array text field options
+     * @var array plugin events
+     * ```
+     * [
+     *  'dp.change' => new JsExpression('function(event){ alert('event'); }')
+     * ]
+     * ```
      */
-    public $options = [];
+    public $clientEvents = [];
 
     /**
      * @var array
@@ -171,8 +181,13 @@ class DateTimePicker extends InputWidget
 
         $config = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
 
-        $js = "$('" . $this->selector . "').datetimepicker($config);";
-        $view->registerJs($js);
+        $js[] = "$('" . $this->selector . "').datetimepicker($config)";
+        foreach ($this->clientEvents as $key=>$value) {
+            $js[] =  ".on('{$key}', {$value})";
+        }
+        $js[] = ";\n";
+
+        $view->registerJs(implode('', $js));
     }
 
     /**

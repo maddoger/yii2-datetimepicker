@@ -3,7 +3,7 @@
 	"description": "Yii2 DateTimePicker Widget.",
 	"keywords": ["yii2", "extension", "widget"],
 	"type": "yii2-extension",
-	"license": "BSD-3-Clause",
+	"license": "MIT",
 	"authors": [
         {
             "name": "Vitaliy Syrchikov",
