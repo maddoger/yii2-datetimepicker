@@ -150,7 +150,7 @@ class DateTimeAttribute extends Object
             return false;
         } else {
             // if no time was provided in the format string set time to 0 to get a simple date timestamp
-            if (strpbrk($format, 'HhGgis') === false) {
+            if (strpbrk($format, 'UHhGgis') === false) {
                 $date->setTime(0, 0, 0);
             }
             return $date;
