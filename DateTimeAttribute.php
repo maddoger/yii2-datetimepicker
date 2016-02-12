@@ -71,7 +71,7 @@ class DateTimeAttribute extends Object
     {
         parent::init();
         if ($this->timeZoneConvert === null) {
-            $this->timeZoneConvert =  $this->localFormat[0] != 'date';
+            $this->timeZoneConvert = !($this->originalFormat != 'U' && $this->localFormat[0] == 'date');
         }
         if (!$this->_localFormatPhp) {
             $this->_localFormatPhp = FormatConverter::convertDateIcuToPhp($this->localFormat[1], $this->localFormat[0]);
