@@ -7,6 +7,7 @@ use yii\helpers\FormatConverter;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
+use maddoger\behaviors\DateTimeAttribute;
 
 /**
  * DateTimeEditor Widget For Yii2 class file.

@@ -14,7 +14,8 @@
 		}
 	],
 	"require": {
-		"yiisoft/yii2": "*",
+		"yiisoft/yii2": ">=2.0.13",
+		"maddoger/yii2-datetime-behavior": "~2.0",
 		"bower-asset/eonasdan-bootstrap-datetimepicker": "4.*"
 	},
 	"autoload": {

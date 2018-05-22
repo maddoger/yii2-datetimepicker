@@ -2,6 +2,8 @@
 
 namespace maddoger\widgets;
 
+use maddoger\behaviors\DateTimeAttribute;
+
 /**
  * DateEditor Widget For Yii2 class file.
  *
